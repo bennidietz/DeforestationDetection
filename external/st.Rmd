@@ -12,7 +12,7 @@ library(gdalcubes)
 library(magrittr)
 gdalcubes_options(threads=8)
 
-IMAGE_DIR = "L8_cropped" # please change
+IMAGE_DIR = "/Users/benjamindietz/Desktop/LocalGeoinformatics/AnalysisSTData/DeforestationDetection/data/L8_cropped" # please change
 
 col = create_image_collection(list.files(IMAGE_DIR, recursive = TRUE, pattern=".tif", full.names  = TRUE), "L8_SR")
 
@@ -26,7 +26,7 @@ v = cube_view(srs="EPSG:3857", extent=col, dx=250, dy=250, dt="P1Y", resampling 
 raster_cube(col, v, L8.clear_mask) %>%
   select_bands(c("B04", "B05")) %>%
   apply_pixel("(B05-B04)/(B05+B04)") %>%
-  write_tif("../L8cube",prefix = "NDVI_")
+  write_tif("/Users/benjamindietz/Desktop/LocalGeoinformatics/AnalysisSTData/DeforestationDetection/data/L8cube",prefix = "NDVI_")
 ```
 
 We can read this with package stars, and visualise as:
@@ -34,7 +34,7 @@ We can read this with package stars, and visualise as:
 ```{r}
 # remotes::install_github("r-spatial/stars")
 library(stars)
-subdir = "L8cube"
+subdir = "/Users/benjamindietz/Desktop/LocalGeoinformatics/AnalysisSTData/DeforestationDetection/data/L8cube"
 f = paste0(subdir, "/", list.files(subdir))
 (st = read_stars(f))
 plot(merge(st))
@@ -46,7 +46,7 @@ composite for a sub-region by
 ```{r}
 gdalcubes_options(threads=8)
 
-IMAGE_DIR = "L8_cropped" # please change
+IMAGE_DIR = "/Users/benjamindietz/Desktop/LocalGeoinformatics/AnalysisSTData/DeforestationDetection/data/L8_cropped" # please change
 
 col = create_image_collection(list.files(IMAGE_DIR, recursive = TRUE, pattern=".tif", full.names  = TRUE), "L8_SR")
 
@@ -67,7 +67,7 @@ And visualise with
 ```{r}
 # remotes::install_github("r-spatial/stars")
 library(stars)
-subdir = "L8cube_subregion"
+subdir = "/Users/benjamindietz/Desktop/LocalGeoinformatics/AnalysisSTData/DeforestationDetection/data/L8cube_subregion"
 f = paste0(subdir, "/", list.files(subdir))
 (st = read_stars(f))
 plot(merge(st))
